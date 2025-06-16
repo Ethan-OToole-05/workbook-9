@@ -7,15 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SimpleProductDAO implements ProductDAO{
+public class SimpleProductDAO implements ProductDAO {
 
     private List<Product> products;
+    private Product product;
 
     public SimpleProductDAO() {
         this.products = new ArrayList<>();
         this.products.add(new Product(1245, "Milk", "Dairy", 4.99));
-        this.products.add(new Product(1234, "Chicken", "Meat", 4.99));
-        this.products.add(new Product(4321, "Beef", "Meat", 4.99));
+        this.products.add(new Product(1234, "Chicken", "Meat", 9.99));
+        this.products.add(new Product(4321, "Beef", "Meat", 10.99));
 
     }
 
@@ -28,5 +29,45 @@ public class SimpleProductDAO implements ProductDAO{
     public List<Product> getAllProducts() {
 //        return List.of();
         return products;
+    }
+
+    @Override
+    public Product getProductById(int productId) {
+        try {
+            for (Product product : this.products) {
+                if (product.getProductId() == productId) {
+                    return product;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateProduct(int productId) {
+        try {
+            for (Product product : this.products) {
+                if (product.getProductId() == productId) {
+                    //update info
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteProduct(int productId) {
+        try {
+            for (Product product : this.products) {
+                if (product.getProductId() == productId) {
+                    this.products.remove(product);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
