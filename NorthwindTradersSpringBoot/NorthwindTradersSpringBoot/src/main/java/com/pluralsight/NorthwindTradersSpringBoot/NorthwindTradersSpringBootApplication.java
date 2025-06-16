@@ -20,7 +20,7 @@ public class NorthwindTradersSpringBootApplication {
         ApplicationContext context = SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
         productDAO = context.getBean(SimpleProductDAO.class);
         System.out.println("Welcome to the product spring app!");
-        while(true) {
+        while (true) {
             System.out.println("Please select an option below");
             System.out.println("1) List All Products");
             System.out.println("2) Add Product");
@@ -51,10 +51,18 @@ public class NorthwindTradersSpringBootApplication {
                     System.out.println("Product added");
                     break;
                 case 3:
-//                System.out.print("Please enter the id of the product to update: ");
-//                int searchingProduct = input.nextInt();
-//                input.nextLine();
-//                System.out.println();
+                    System.out.print("Please enter the id of the product to update: ");
+                    int searchingProduct = input.nextInt();
+                    input.nextLine();
+                    System.out.print("Enter the new product name: ");
+                    String newProductName = input.nextLine();
+                    System.out.print("Enter the new product category: ");
+                    String newProductCategory = input.nextLine();
+                    System.out.print("Enter the new product price: ");
+                    double newProductPrice = input.nextDouble();
+                    input.nextLine();
+                    productDAO.updateProduct(searchingProduct, newProductName, newProductCategory, newProductPrice);
+                    System.out.println("Product updated");
                     break;
                 case 4:
                     System.out.print("Please enter the id of the product to search by: ");

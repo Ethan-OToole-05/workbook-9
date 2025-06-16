@@ -46,11 +46,13 @@ public class SimpleProductDAO implements ProductDAO {
     }
 
     @Override
-    public void updateProduct(int productId) {
+    public void updateProduct(int productId, String productName, String productCategory, double productPrice) {
         try {
             for (Product product : this.products) {
                 if (product.getProductId() == productId) {
-                    //update info
+                    product.setName(productName);
+                    product.setCategory(productCategory);
+                    product.setPrice(productPrice);
                 }
             }
         } catch (Exception e) {
