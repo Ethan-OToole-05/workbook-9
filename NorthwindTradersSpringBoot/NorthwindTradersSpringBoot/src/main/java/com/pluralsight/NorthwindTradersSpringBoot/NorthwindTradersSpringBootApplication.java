@@ -60,7 +60,7 @@ public class NorthwindTradersSpringBootApplication {
                     System.out.print("Please enter the id of the product to search by: ");
                     int productIdSearch = input.nextInt();
                     input.nextLine();
-                    productDAO.getProductById(productIdSearch);
+                    System.out.println(productDAO.getProductById(productIdSearch));
                     break;
                 case 5:
                     System.out.print("Please enter the id of the product to delete: ");
