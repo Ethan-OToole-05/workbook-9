@@ -26,7 +26,7 @@ public class NorthwindApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        ApplicationContext context = SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
+//        ApplicationContext context = SpringApplication.run(NorthwindTradersSpringBootApplication.class, args);
 //        productDAO = context.getBean(SimpleProductDAO.class);
         System.out.println("Welcome to the product spring app!");
         while (true) {

@@ -66,6 +66,7 @@ public class SimpleProductDAO implements ProductDAO {
             for (Product product : this.products) {
                 if (product.getProductId() == productId) {
                     this.products.remove(product);
+                    return;
                 }
             }
         } catch (Exception e) {
