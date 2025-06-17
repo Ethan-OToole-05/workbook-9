@@ -4,9 +4,7 @@ package com.pluralsight.NorthwindTradersSpringBoot.Controllers;
 import com.pluralsight.NorthwindTradersSpringBoot.Models.Product;
 import com.pluralsight.NorthwindTradersSpringBoot.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,18 @@ public class ProductController {
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
+
+
+    @RequestMapping(path = "/products/{productId}", method = RequestMethod.GET)
+    public Product getProductById(@PathVariable int productId) {
+        return productService.getProductById(productId);
+    }
+
+    /*
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String index(@RequestParam(defaultValue = "World!") String name) {
+        return "Hello " + name;
+    }
+     */
 }
 

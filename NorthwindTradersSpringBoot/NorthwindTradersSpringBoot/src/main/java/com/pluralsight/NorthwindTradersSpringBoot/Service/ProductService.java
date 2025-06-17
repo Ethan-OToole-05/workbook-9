@@ -22,4 +22,8 @@ public class ProductService {
         return productDAO.getAllProducts();
     }
 
+    public Product getProductById(int productId) {
+        return productDAO.getProductById(productId);
+    }
+
 }

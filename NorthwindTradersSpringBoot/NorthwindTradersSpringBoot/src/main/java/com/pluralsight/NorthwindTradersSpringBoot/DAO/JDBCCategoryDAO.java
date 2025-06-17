@@ -37,4 +37,20 @@ public class JDBCCategoryDAO implements CategoryDAO {
         }
         return this.categories;
     }
+
+    @Override
+    public Category getCategoryById(int categoryId) {
+        String query = "SELECT CategoryId, CategoryName FROM Categories WHERE CategoryId = ?;";
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, categoryId);
+            ResultSet rows = statement.executeQuery();
+            if (rows.next()) {
+                this.category = (new Category(rows.getInt(1), rows.getString(2)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return category;
+    }
 }
