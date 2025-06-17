@@ -1,0 +1,28 @@
+package com.pluralsight.NorthwindTradersSpringBoot.Controllers;
+
+
+import com.pluralsight.NorthwindTradersSpringBoot.Models.Product;
+import com.pluralsight.NorthwindTradersSpringBoot.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class ProductController {
+
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @RequestMapping(path = "/products", method = RequestMethod.GET)
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+}
+
