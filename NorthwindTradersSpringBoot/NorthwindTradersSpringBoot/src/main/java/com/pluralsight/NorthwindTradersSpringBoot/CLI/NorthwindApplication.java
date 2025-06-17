@@ -1,7 +1,7 @@
 package com.pluralsight.NorthwindTradersSpringBoot.CLI;
 
 import com.pluralsight.NorthwindTradersSpringBoot.DAO.ProductDAO;
-import com.pluralsight.NorthwindTradersSpringBoot.DAO.SimpleProductDAO;
+//import com.pluralsight.NorthwindTradersSpringBoot.DAO.SimpleProductDAO;
 import com.pluralsight.NorthwindTradersSpringBoot.Models.Product;
 import com.pluralsight.NorthwindTradersSpringBoot.NorthwindTradersSpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +51,9 @@ public class NorthwindApplication implements CommandLineRunner {
                     input.nextLine();
                     System.out.print("Please enter the product name: ");
                     String productName = input.nextLine();
-                    System.out.print("Please enter the product category: ");
-                    String productCategory = input.nextLine();
+                    System.out.print("Please enter the product category id: ");
+                    int productCategory = input.nextInt();
+                    input.nextLine();
                     System.out.print("Please enter the product price: ");
                     double productPrice = input.nextDouble();
                     input.nextLine();
@@ -65,8 +66,9 @@ public class NorthwindApplication implements CommandLineRunner {
                     input.nextLine();
                     System.out.print("Enter the new product name: ");
                     String newProductName = input.nextLine();
-                    System.out.print("Enter the new product category: ");
-                    String newProductCategory = input.nextLine();
+                    System.out.print("Enter the new product category id: ");
+                    int newProductCategory = input.nextInt();
+                    input.nextLine();
                     System.out.print("Enter the new product price: ");
                     double newProductPrice = input.nextDouble();
                     input.nextLine();

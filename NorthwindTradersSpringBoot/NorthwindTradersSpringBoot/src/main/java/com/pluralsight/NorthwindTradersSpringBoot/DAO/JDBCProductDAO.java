@@ -34,12 +34,12 @@ public class JDBCProductDAO implements ProductDAO {
     @Override
     public List<Product> getAllProducts() {
         this.products.clear();
-        String query = "SELECT ProductId, ProductName, Category, UnitPrice FROM Products;";
+        String query = "SELECT ProductId, ProductName, CategoryId, UnitPrice FROM Products;";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rows = statement.executeQuery();
             while (rows.next()) {
-                this.products.add(new Product(rows.getInt(1), rows.getString(2), rows.getString(3), rows.getInt(4)));
+                this.products.add(new Product(rows.getInt(1), rows.getString(2), rows.getInt(3), rows.getInt(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,42 +49,41 @@ public class JDBCProductDAO implements ProductDAO {
 
     @Override
     public Product getProductById(int productId) {
-        String query = "SELECT ProductId, ProductName, Category, UnitPrice FROM Products WHERE ProductId = ?;";
+        String query = "SELECT ProductId, ProductName, CategoryId, UnitPrice FROM Products WHERE ProductId = ?;";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, productId);
             ResultSet rows = statement.executeQuery();
             if (rows.next()) {
-                this.product = (new Product(rows.getInt(1), rows.getString(2), rows.getString(3), rows.getInt(4)));
+                this.product = (new Product(rows.getInt(1), rows.getString(2), rows.getInt(3), rows.getInt(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return product;
-        /*
-        try {
-            for (Product product : this.products) {
-                if (product.getProductId() == productId) {
-                    return product;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-         */
     }
 
     @Override
-    public void updateProduct(int productId, String productName, String productCategory, double productPrice) {
+    public void updateProduct(int productId, String productName, int productCategory, double productPrice) {
+        String query = "UPDATE Products SET ProductName = ?, CategoryID = ?, UnitPrice = ? WHERE ProductID = ?";
 
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, productName);
+            statement.setInt(2, productCategory);
+            statement.setDouble(3, productPrice);
+            statement.setInt(4, productId);
+            ResultSet rows = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         /*
         try {
             for (Product product : this.products) {
                 if (product.getProductId() == productId) {
                     product.setName(productName);
-                    product.setCategory(productCategory);
+                    product.setCategoryId(productCategory);
                     product.setPrice(productPrice);
                 }
             }
