@@ -1,5 +1,6 @@
 package com.pluralsight.NorthwindTradersSpringBoot.CLI;
 
+import com.pluralsight.NorthwindTradersSpringBoot.DAO.CategoryDAO;
 import com.pluralsight.NorthwindTradersSpringBoot.DAO.ProductDAO;
 //import com.pluralsight.NorthwindTradersSpringBoot.DAO.SimpleProductDAO;
 import com.pluralsight.NorthwindTradersSpringBoot.Models.Product;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 @Component
@@ -17,11 +19,13 @@ public class NorthwindApplication implements CommandLineRunner {
 
     private final Scanner input;
     private final ProductDAO productDAO;
+    private final CategoryDAO categoryDAO;
 
 
     @Autowired
-    public NorthwindApplication(ProductDAO productDAO) {
+    public NorthwindApplication(ProductDAO productDAO, CategoryDAO categoryDAO) {
         this.productDAO = productDAO;
+        this.categoryDAO = categoryDAO;
         this.input = new Scanner(System.in);
     }
     @Override
