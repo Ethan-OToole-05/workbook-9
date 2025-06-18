@@ -25,4 +25,8 @@ public class CategoryService {
     public Category getCategoryById(int categoryId) {
         return categoryDAO.getCategoryById(categoryId);
     }
+
+    public void addCategory(Category category) {
+        categoryDAO.addCategory(category);
+    }
 }

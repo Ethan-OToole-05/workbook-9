@@ -26,26 +26,6 @@ public class JDBCProductDAO implements ProductDAO {
     }
 
     @Override
-    public void addProduct(Product product) {
-        Product createdProduct = null;
-        String query = "INSERT INTO Products (ProductName, CategoryId, UnitPrice) VALUES (?, ?, ?);";
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, product.getName());
-            statement.setInt(2, product.getCategoryId());
-            statement.setDouble(3, product.getPrice());
-            statement.executeUpdate();
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if(generatedKeys.next()) {
-                createdProduct = getProductById(generatedKeys.getInt(1));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public List<Product> getAllProducts() {
         this.products.clear();
         String query = "SELECT ProductId, ProductName, CategoryId, UnitPrice FROM Products;";
@@ -78,9 +58,27 @@ public class JDBCProductDAO implements ProductDAO {
     }
 
     @Override
+    public void addProduct(Product product) {
+        Product createdProduct = null;
+        String query = "INSERT INTO Products (ProductName, CategoryId, UnitPrice) VALUES (?, ?, ?);";
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, product.getName());
+            statement.setInt(2, product.getCategoryId());
+            statement.setDouble(3, product.getPrice());
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                createdProduct = getProductById(generatedKeys.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void updateProduct(int productId, String productName, int productCategory, double productPrice) {
         String query = "UPDATE Products SET ProductName = ?, CategoryID = ?, UnitPrice = ? WHERE ProductID = ?";
-
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, productName);
