@@ -1,6 +1,5 @@
 package com.pluralsight.NorthwindTradersSpringBoot.DAO;
 
-import com.mysql.cj.protocol.Resultset;
 import com.pluralsight.NorthwindTradersSpringBoot.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,22 @@ public class JDBCProductDAO implements ProductDAO {
 
     @Override
     public void addProduct(Product product) {
-        this.products.add(product);
+        Product createdProduct = null;
+        String query = "INSERT INTO Products (ProductName, CategoryId, UnitPrice) VALUES (?, ?, ?);";
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, product.getName());
+            statement.setInt(2, product.getCategoryId());
+            statement.setDouble(3, product.getPrice());
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if(generatedKeys.next()) {
+                createdProduct = getProductById(generatedKeys.getInt(1));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

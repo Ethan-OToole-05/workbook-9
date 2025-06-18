@@ -29,6 +29,11 @@ public class ProductController {
         return productService.getProductById(productId);
     }
 
+    @RequestMapping(path = "/products", method = RequestMethod.POST)
+    public void addCustomer(@RequestBody Product product) {
+        productService.addProduct(product);
+    }
+
     /*
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String index(@RequestParam(defaultValue = "World!") String name) {
