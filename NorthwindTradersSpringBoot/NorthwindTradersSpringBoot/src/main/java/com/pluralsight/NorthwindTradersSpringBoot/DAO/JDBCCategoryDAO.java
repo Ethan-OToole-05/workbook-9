@@ -18,13 +18,14 @@ public class JDBCCategoryDAO implements CategoryDAO {
 
     @Autowired
     public JDBCCategoryDAO(DataSource dataSource) {
-        this.category = new Category();
-        this.categories = new ArrayList<>();
+//        this.category = new Category();
+//        this.categories = new ArrayList<>();
         this.dataSource = dataSource;
     }
 
     @Override
     public List<Category> getAllCategories() {
+        this.categories = new ArrayList<>();
         String query = "SELECT CategoryId, CategoryName FROM categories";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);

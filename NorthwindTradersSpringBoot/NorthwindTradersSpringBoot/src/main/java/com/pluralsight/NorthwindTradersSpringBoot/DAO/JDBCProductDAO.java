@@ -20,14 +20,14 @@ public class JDBCProductDAO implements ProductDAO {
 
     @Autowired
     public JDBCProductDAO(DataSource dataSource) {
-        this.product = new Product();
-        this.products = new ArrayList<>();
+//        this.product = new Product();
+//        this.products = new ArrayList<>();
         this.dataSource = dataSource;
     }
 
     @Override
     public List<Product> getAllProducts() {
-        this.products.clear();
+        this.products = new ArrayList<>();
         String query = "SELECT ProductId, ProductName, CategoryId, UnitPrice FROM Products;";
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
